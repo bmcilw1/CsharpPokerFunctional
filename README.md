@@ -1,5 +1,7 @@
 # Quick Start Guide
 
+This is an exercise to develop a simple poker scoring application using functional techniques in c#.
+
 # Prerequisites
 
 1. Install [dotnet core](https://dotnet.microsoft.com/download/dotnet-core) cli
