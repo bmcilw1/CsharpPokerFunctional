@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace CsharpPokerFunctional
@@ -15,7 +14,6 @@ namespace CsharpPokerFunctional
         [Fact]
         public void CanCreateCardWithValue()
         {
-
             var card = new Card(CardValue.Ace, CardSuit.Clubs);
 
             Assert.Equal(CardValue.Ace, card.Value);
