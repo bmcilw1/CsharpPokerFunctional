@@ -9,7 +9,7 @@ namespace CsharpPokerFunctional
         public void CanCreateHand()
         {
             var hand = new Hand(new List<Card>());
-            Assert.NotNull(hand);
+            Assert.True(hand.Cards.Count == 0);
         }
 
         [Fact]
@@ -18,7 +18,7 @@ namespace CsharpPokerFunctional
             var cards = new List<Card> {
                 new Card(CardValue.Two, CardSuit.Hearts),
                 new Card(CardValue.Eight, CardSuit.Hearts),
-                new Card(CardValue.Eight, CardSuit.Diamonds),
+                new Card(CardValue.Three, CardSuit.Diamonds),
             };
 
             var hand = new Hand(cards);
