@@ -77,6 +77,17 @@ namespace CsharpPokerFunctional
         }
 
         [Fact]
+        public void PartialHandNoRank()
+        {
+            var hand = new Hand(new HashSet<Card>() {
+                new Card(CardValue.Ten, CardSuit.Spades),
+                new Card(CardValue.Jack, CardSuit.Spades),
+            });
+
+            Assert.Equal(HandRank.NoRank, hand.GetHandRank());
+        }
+
+        [Fact]
         public void CanScoreRoyalFlush()
         {
             var hand = new Hand(
@@ -86,6 +97,7 @@ namespace CsharpPokerFunctional
                     new Card(CardValue.Jack, CardSuit.Spades),
                     new Card(CardValue.Queen, CardSuit.Spades),
                     new Card(CardValue.King, CardSuit.Spades),
+                    new Card(CardValue.Ace, CardSuit.Spades),
                 }
             );
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSharpFunctionalExtensions;
@@ -23,7 +24,30 @@ namespace CsharpPokerFunctional
 
         public HandRank GetHandRank()
         {
-            return HandRank.NoRank;
+            if (ContainsRoyalFlush())
+                return HandRank.RoyalFlush;
+            else
+                return HandRank.NoRank;
+        }
+
+        private bool IsFullHand()
+        {
+            return Cards.Count == 5;
+        }
+
+        private bool ContainsRoyalFlush()
+        {
+            if (!IsFullHand())
+                return false;
+
+            CardSuit suit = Cards.First().Suit;
+            foreach (Card card in Cards)
+            {
+                if (card.Suit != suit || card.Value > CardValue.Ace || card.Value < CardValue.Ten)
+                    return false;
+            }
+
+            return true;
         }
 
         public CardValue GetHighCard() => Cards.Max((card) => card.Value);
