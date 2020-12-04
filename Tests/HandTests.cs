@@ -14,19 +14,6 @@ namespace CsharpPokerFunctional
         }
 
         [Fact]
-        public void CanGetHighCard()
-        {
-            var cards = new HashSet<Card> {
-                new Card(CardValue.Two, CardSuit.Hearts),
-                new Card(CardValue.Eight, CardSuit.Hearts),
-                new Card(CardValue.Three, CardSuit.Diamonds),
-            };
-
-            var hand = new Hand(cards);
-            Assert.Equal(CardValue.Eight, hand.GetHighCard());
-        }
-
-        [Fact]
         public void NoDuplicateCards()
         {
             var cardsDup = new HashSet<Card> {
@@ -67,6 +54,19 @@ namespace CsharpPokerFunctional
             };
 
             Assert.NotEqual(new Hand(cards1), new Hand(cards2));
+        }
+
+        [Fact]
+        public void CanGetHighCard()
+        {
+            var cards = new HashSet<Card> {
+                new Card(CardValue.Two, CardSuit.Hearts),
+                new Card(CardValue.Eight, CardSuit.Hearts),
+                new Card(CardValue.Three, CardSuit.Diamonds),
+            };
+
+            var hand = new Hand(cards);
+            Assert.Equal(CardValue.Eight, hand.GetHighCard());
         }
     }
 }
