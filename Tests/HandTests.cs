@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -41,16 +42,31 @@ namespace CsharpPokerFunctional
         }
 
         [Fact]
-        public void CanCompareHands()
+        public void SameHandsAreEqual()
         {
             var cards1 = new HashSet<Card> {
                 new Card(CardValue.Two, CardSuit.Hearts),
+                new Card(CardValue.Three, CardSuit.Hearts),
+            };
+            var cards2 = new HashSet<Card> {
+                new Card(CardValue.Two, CardSuit.Hearts),
+                new Card(CardValue.Three, CardSuit.Hearts),
+            };
+
+            Assert.Equal(new Hand(cards1), new Hand(cards2));
+        }
+
+        [Fact]
+        public void DifferentHandsNotEqual()
+        {
+            var cards1 = new HashSet<Card> {
+                new Card(CardValue.Two, CardSuit.Spades),
             };
             var cards2 = new HashSet<Card> {
                 new Card(CardValue.Two, CardSuit.Hearts),
             };
 
-            Assert.Equal(new Hand(cards1), new Hand(cards2));
+            Assert.NotEqual(new Hand(cards1), new Hand(cards2));
         }
     }
 }
