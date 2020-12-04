@@ -8,14 +8,14 @@ namespace CsharpPokerFunctional
         [Fact]
         public void CanCreateHand()
         {
-            var hand = new Hand(new List<Card>());
+            var hand = new Hand(new HashSet<Card>());
             Assert.True(hand.Cards.Count == 0);
         }
 
         [Fact]
         public void CanGetHighCard()
         {
-            var cards = new List<Card> {
+            var cards = new HashSet<Card> {
                 new Card(CardValue.Two, CardSuit.Hearts),
                 new Card(CardValue.Eight, CardSuit.Hearts),
                 new Card(CardValue.Three, CardSuit.Diamonds),
