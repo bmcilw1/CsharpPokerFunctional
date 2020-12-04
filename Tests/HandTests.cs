@@ -77,19 +77,19 @@ namespace CsharpPokerFunctional
         }
 
         [Fact]
-        public void CanScoreHighCard()
+        public void CanScoreRoyalFlush()
         {
             var hand = new Hand(
-                new HashSet<Card> {
-                    new Card(CardValue.Seven, CardSuit.Spades),
-                    new Card(CardValue.Ten, CardSuit.Clubs),
-                    new Card(CardValue.Five, CardSuit.Hearts),
-                    new Card(CardValue.King, CardSuit.Hearts),
-                    new Card(CardValue.Two, CardSuit.Hearts)
+                new HashSet<Card>
+                {
+                    new Card(CardValue.Ten, CardSuit.Spades),
+                    new Card(CardValue.Jack, CardSuit.Spades),
+                    new Card(CardValue.Queen, CardSuit.Spades),
+                    new Card(CardValue.King, CardSuit.Spades),
                 }
             );
 
-            Assert.Equal(HandRank.HighCard, hand.GetHandRank());
+            Assert.Equal(HandRank.RoyalFlush, hand.GetHandRank());
         }
     }
 }
