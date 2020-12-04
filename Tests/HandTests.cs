@@ -76,7 +76,6 @@ namespace CsharpPokerFunctional
             Assert.Equal(HandRank.NoRank, hand.GetHandRank());
         }
 
-
         [Fact]
         public void CanScoreHighCard()
         {
