@@ -103,5 +103,22 @@ namespace CsharpPokerFunctional
 
             Assert.Equal(HandRank.RoyalFlush, hand.GetHandRank());
         }
+
+        [Fact]
+        public void CanScoreFlush()
+        {
+            var hand = new Hand(
+                new HashSet<Card>
+                {
+                    new Card(CardValue.Nine, CardSuit.Spades),
+                    new Card(CardValue.Ten, CardSuit.Spades),
+                    new Card(CardValue.Jack, CardSuit.Spades),
+                    new Card(CardValue.Queen, CardSuit.Spades),
+                    new Card(CardValue.King, CardSuit.Spades),
+                }
+            );
+
+            Assert.Equal(HandRank.Flush, hand.GetHandRank());
+        }
     }
 }

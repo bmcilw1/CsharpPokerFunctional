@@ -24,10 +24,14 @@ namespace CsharpPokerFunctional
 
         public HandRank GetHandRank()
         {
-            if (ContainsRoyalFlush())
-                return HandRank.RoyalFlush;
-            else
+            if (!IsFullHand())
                 return HandRank.NoRank;
+            else if (ContainsRoyalFlush())
+                return HandRank.RoyalFlush;
+            else if (ContainsFlush())
+                return HandRank.Flush;
+            else
+                return HandRank.HighCard;
         }
 
         private bool IsFullHand()
@@ -37,13 +41,22 @@ namespace CsharpPokerFunctional
 
         private bool ContainsRoyalFlush()
         {
-            if (!IsFullHand())
-                return false;
-
             CardSuit suit = Cards.First().Suit;
             foreach (Card card in Cards)
             {
                 if (card.Suit != suit || card.Value > CardValue.Ace || card.Value < CardValue.Ten)
+                    return false;
+            }
+
+            return true;
+        }
+
+        private bool ContainsFlush()
+        {
+            List<Card> orderedCards = Cards.ToList().OrderBy((card) => card.Value).ToList();
+            for (int i = 1; i < orderedCards.Count; i++)
+            {
+                if (orderedCards[i - 1].Suit != orderedCards[i].Suit || orderedCards[i - 1].Value + 1 != orderedCards[i].Value)
                     return false;
             }
 
