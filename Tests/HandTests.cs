@@ -39,5 +39,18 @@ namespace CsharpPokerFunctional
             var hand = new Hand(cardsDup);
             Assert.Equal(cardsNoDup, hand.Cards);
         }
+
+        [Fact]
+        public void CanCompareHands()
+        {
+            var cards1 = new HashSet<Card> {
+                new Card(CardValue.Two, CardSuit.Hearts),
+            };
+            var cards2 = new HashSet<Card> {
+                new Card(CardValue.Two, CardSuit.Hearts),
+            };
+
+            Assert.Equal(new Hand(cards1), new Hand(cards2));
+        }
     }
 }
