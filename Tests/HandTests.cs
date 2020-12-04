@@ -24,5 +24,20 @@ namespace CsharpPokerFunctional
             var hand = new Hand(cards);
             Assert.Equal(CardValue.Eight, hand.GetHighCard());
         }
+
+        [Fact]
+        public void NoDuplicateCards()
+        {
+            var cardsDup = new HashSet<Card> {
+                new Card(CardValue.Two, CardSuit.Hearts),
+                new Card(CardValue.Two, CardSuit.Hearts),
+            };
+            var cardsNoDup = new HashSet<Card> {
+                new Card(CardValue.Two, CardSuit.Hearts),
+            };
+
+            var hand = new Hand(cardsDup);
+            Assert.Equal(cardsNoDup, hand.Cards);
+        }
     }
 }
