@@ -27,5 +27,23 @@ namespace CsharpPokerFunctional
 
             Assert.Equal("Ace of Spades", card.ToString());
         }
+
+        [Fact]
+        public void SameAreEqual()
+        {
+            var card1 = new Card(CardValue.Ace, CardSuit.Spades);
+            var card2 = new Card(CardValue.Ace, CardSuit.Spades);
+
+            Assert.Equal(card1, card2);
+        }
+
+        [Fact]
+        public void DifferentAreNotEqual()
+        {
+            var card1 = new Card(CardValue.Queen, CardSuit.Spades);
+            var card2 = new Card(CardValue.Ace, CardSuit.Spades);
+
+            Assert.NotEqual(card1, card2);
+        }
     }
 }
