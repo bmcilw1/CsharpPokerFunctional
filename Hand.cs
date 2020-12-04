@@ -21,6 +21,26 @@ namespace CsharpPokerFunctional
             }
         }
 
+        public HandRank GetHandRank()
+        {
+            return HandRank.NoRank;
+        }
+
         public CardValue GetHighCard() => Cards.Max((card) => card.Value);
     };
+
+    public enum HandRank
+    {
+        NoRank,
+        HighCard,
+        Pair,
+        TwoPair,
+        ThreeOfAKind,
+        Straight,
+        Flush,
+        FullHouse,
+        FourOfAKind,
+        StraightFlush,
+        RoyalFlush
+    }
 }

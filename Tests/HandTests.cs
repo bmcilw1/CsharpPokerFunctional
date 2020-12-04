@@ -68,5 +68,12 @@ namespace CsharpPokerFunctional
             var hand = new Hand(cards);
             Assert.Equal(CardValue.Eight, hand.GetHighCard());
         }
+
+        [Fact]
+        public void EmptyHandNoRank()
+        {
+            var hand = new Hand(new HashSet<Card>());
+            Assert.Equal(HandRank.NoRank, hand.GetHandRank());
+        }
     }
 }
