@@ -9,10 +9,7 @@ namespace CsharpPokerFunctional
     {
         public HashSet<Card> Cards { get; init; }
 
-        public Hand(HashSet<Card> cards)
-        {
-            Cards = cards;
-        }
+        public Hand(HashSet<Card> cards) => Cards = cards;
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
