@@ -34,34 +34,13 @@ namespace CsharpPokerFunctional
                 return HandRank.HighCard;
         }
 
-        private bool IsFullHand()
-        {
-            return Cards.Count == 5;
-        }
+        private bool IsFullHand() => Cards.Count == 5;
 
-        private bool ContainsRoyalFlush()
-        {
-            CardSuit suit = Cards.First().Suit;
-            foreach (Card card in Cards)
-            {
-                if (card.Suit != suit || card.Value > CardValue.Ace || card.Value < CardValue.Ten)
-                    return false;
-            }
+        private bool ContainsRoyalFlush() =>
+            ContainsFlush() && Cards.All(c => c.Value > CardValue.Nine);
 
-            return true;
-        }
-
-        private bool ContainsFlush()
-        {
-            List<Card> orderedCards = Cards.ToList().OrderBy((card) => card.Value).ToList();
-            for (int i = 1; i < orderedCards.Count; i++)
-            {
-                if (orderedCards[i - 1].Suit != orderedCards[i].Suit || orderedCards[i - 1].Value + 1 != orderedCards[i].Value)
-                    return false;
-            }
-
-            return true;
-        }
+        private bool ContainsFlush() =>
+            Cards.All(c => Cards.First().Suit == c.Suit);
 
         public CardValue GetHighCard() => Cards.Max((card) => card.Value);
     };
