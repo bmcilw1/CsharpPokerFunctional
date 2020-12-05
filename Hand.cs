@@ -22,17 +22,11 @@ namespace CsharpPokerFunctional
             }
         }
 
-        public HandRank GetHandRank()
-        {
-            if (!IsFullHand())
-                return HandRank.NoRank;
-            else if (ContainsRoyalFlush())
-                return HandRank.RoyalFlush;
-            else if (ContainsFlush())
-                return HandRank.Flush;
-            else
-                return HandRank.HighCard;
-        }
+        public HandRank GetHandRank() =>
+            !IsFullHand() ? HandRank.NoRank :
+            ContainsRoyalFlush() ? HandRank.RoyalFlush :
+            ContainsFlush() ? HandRank.Flush :
+            HandRank.HighCard;
 
         private bool IsFullHand() => Cards.Count == 5;
 
