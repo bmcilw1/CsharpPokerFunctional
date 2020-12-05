@@ -14,9 +14,7 @@ namespace CsharpPokerFunctional
         protected override IEnumerable<object> GetEqualityComponents()
         {
             foreach (Card card in Cards)
-            {
                 yield return card;
-            }
         }
 
         public HandRank GetHandRank() =>
