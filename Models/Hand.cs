@@ -27,14 +27,9 @@ namespace CsharpPokerFunctional
             HasNCardsOfAKind(2) ? HandRank.Pair :
             HandRank.HighCard;
 
-        private bool ContainsStraight()
-        {
-            var cardsOrderedByValue = Cards.OrderBy(c => c.Value);
-
-            return cardsOrderedByValue.Zip(cardsOrderedByValue.Skip(1),
-                (c1, c2) => c2.Value == c1.Value + 1)
-                .All(c => c);
-        }
+        private bool ContainsStraight() => Cards.OrderBy(c => c.Value)
+            .SelectConsecutive((c1, c2) => c1.Value + 1 == c2.Value)
+            .All(c => c);
 
         private bool HasNCardsOfAKind(int n) =>
             Cards.GroupBy(c => c.Value)
