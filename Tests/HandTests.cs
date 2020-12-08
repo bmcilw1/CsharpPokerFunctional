@@ -187,5 +187,22 @@ namespace CsharpPokerFunctional
 
             Assert.Equal(HandRank.FullHouse, hand.GetHandRank());
         }
+
+        [Fact]
+        public void CanScoreStraightUnordered()
+        {
+            var hand = new Hand(
+                new HashSet<Card>
+                {
+                    new Card(CardValue.King, CardSuit.Hearts),
+                    new Card(CardValue.Jack, CardSuit.Spades),
+                    new Card(CardValue.Ten, CardSuit.Clubs),
+                    new Card(CardValue.Nine, CardSuit.Diamonds),
+                    new Card(CardValue.Queen, CardSuit.Spades),
+                }
+            );
+
+            Assert.Equal(HandRank.Straight, hand.GetHandRank());
+        }
     }
 }

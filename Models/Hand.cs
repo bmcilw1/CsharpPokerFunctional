@@ -21,10 +21,20 @@ namespace CsharpPokerFunctional
             ContainsRoyalFlush() ? HandRank.RoyalFlush :
             ContainsFlush() ? HandRank.Flush :
             ContainsFullHouse() ? HandRank.FullHouse :
+            ContainsStraight() ? HandRank.Straight :
             HasNCardsOfAKind(4) ? HandRank.FourOfAKind :
             HasNCardsOfAKind(3) ? HandRank.ThreeOfAKind :
             HasNCardsOfAKind(2) ? HandRank.Pair :
             HandRank.HighCard;
+
+        private bool ContainsStraight()
+        {
+            var cardsOrderedByValue = Cards.OrderBy(c => c.Value);
+
+            return cardsOrderedByValue.Zip(cardsOrderedByValue.Skip(1),
+                (c1, c2) => c2.Value == c1.Value + 1)
+                .All(c => c);
+        }
 
         private bool HasNCardsOfAKind(int n) =>
             Cards.GroupBy(c => c.Value)
