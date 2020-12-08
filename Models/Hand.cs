@@ -19,6 +19,7 @@ namespace CsharpPokerFunctional
         public HandRank GetHandRank() =>
             !IsFullHand() ? HandRank.NoRank :
             ContainsRoyalFlush() ? HandRank.RoyalFlush :
+            ContainsFlush() && ContainsStraight() ? HandRank.StraightFlush :
             ContainsFlush() ? HandRank.Flush :
             ContainsFullHouse() ? HandRank.FullHouse :
             ContainsStraight() ? HandRank.Straight :
