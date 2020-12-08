@@ -56,7 +56,6 @@ namespace CsharpPokerFunctional
 
     public enum HandRank
     {
-        NoRank,
         HighCard,
         Pair,
         TwoPair,
