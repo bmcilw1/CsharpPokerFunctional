@@ -69,6 +69,12 @@ namespace CsharpPokerFunctional
         }
 
         [Fact]
+        public void EmptyHandThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => new Hand(new HashSet<Card>()));
+        }
+
+        [Fact]
         public void CanGetHighCard()
         {
             var cards = new HashSet<Card> {
@@ -81,12 +87,6 @@ namespace CsharpPokerFunctional
 
             var hand = new Hand(cards);
             Assert.Equal(CardValue.Eight, hand.GetHighCard());
-        }
-
-        [Fact]
-        public void EmptyHandThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => new Hand(new HashSet<Card>()));
         }
 
         [Fact]
