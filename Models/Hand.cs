@@ -26,14 +26,14 @@ namespace CsharpPokerFunctional
             NumberDuplicateCardsByValue() == 2 ? HandRank.Pair :
             HandRank.HighCard;
 
-        private IEnumerable<DuplicateCard> GetDuplicateCardsByValue() =>
+        private IEnumerable<DuplicateCard> GetDuplicateCardsByValueDescending() =>
             Cards.GroupBy(c => c.Value, c => new DuplicateCard { Value = c.Value })
                 .Where(g => g.Count() > 1)
                 .Select(g => new DuplicateCard { Value = g.Key, DuplicateCount = g.Count() })
                 .OrderByDescending(c => c.DuplicateCount);
 
         private int NumberDuplicateCardsByValue() =>
-            GetDuplicateCardsByValue()
+            GetDuplicateCardsByValueDescending()
                 .FirstOrDefault()?.DuplicateCount ?? 0;
 
         private bool IsFullHand() => Cards.Count == 5;
@@ -43,7 +43,7 @@ namespace CsharpPokerFunctional
 
         private bool ContainsFullHouse()
         {
-            var duplicates = GetDuplicateCardsByValue();
+            var duplicates = GetDuplicateCardsByValueDescending();
             return duplicates.Count() > 1 &&
                 duplicates.ElementAtOrDefault(0)?.DuplicateCount == 3 &&
                 duplicates.ElementAtOrDefault(1)?.DuplicateCount == 2;
