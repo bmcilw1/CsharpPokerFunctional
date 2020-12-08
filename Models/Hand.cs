@@ -35,11 +35,8 @@ namespace CsharpPokerFunctional
 
         private bool HasKOfNCardsOfAKind(int k, int n) =>
             Cards.GroupBy(c => c.Value)
-                .Where(g => g.Count() > 1)
-                .Select(g => new { Value = g.Key, DuplicateCount = g.Count() })
-                .OrderByDescending(c => c.DuplicateCount)
-                .Where(duplicate => duplicate.DuplicateCount == n)
-                .Count() >= k;
+                .Where(g => g.Count() == n)
+                .Count() == k;
 
         private bool IsFullHand() => Cards.Count == 5;
 
