@@ -23,28 +23,30 @@ namespace CsharpPokerFunctional
             ContainsFlush() ? HandRank.Flush :
             ContainsFullHouse() ? HandRank.FullHouse :
             ContainsStraight() ? HandRank.Straight :
-            HasNCardsOfAKind(4) ? HandRank.FourOfAKind :
-            HasNCardsOfAKind(3) ? HandRank.ThreeOfAKind :
-            HasNCardsOfAKind(2) ? HandRank.Pair :
+            HasKOfNCardsOfAKind(1, 4) ? HandRank.FourOfAKind :
+            HasKOfNCardsOfAKind(1, 3) ? HandRank.ThreeOfAKind :
+            HasKOfNCardsOfAKind(2, 2) ? HandRank.TwoPair :
+            HasKOfNCardsOfAKind(1, 2) ? HandRank.Pair :
             HandRank.HighCard;
 
         private bool ContainsStraight() => Cards.OrderBy(c => c.Value)
             .SelectConsecutive((c1, c2) => c1.Value + 1 == c2.Value)
             .All(c => c);
 
-        private bool HasNCardsOfAKind(int n) =>
+        private bool HasKOfNCardsOfAKind(int k, int n) =>
             Cards.GroupBy(c => c.Value)
                 .Where(g => g.Count() > 1)
                 .Select(g => new { Value = g.Key, DuplicateCount = g.Count() })
                 .OrderByDescending(c => c.DuplicateCount)
-                .Any(duplicate => duplicate.DuplicateCount == n);
+                .Where(duplicate => duplicate.DuplicateCount == n)
+                .Count() >= k;
 
         private bool IsFullHand() => Cards.Count == 5;
 
         private bool ContainsRoyalFlush() =>
             ContainsFlush() && Cards.All(c => c.Value > CardValue.Nine);
 
-        private bool ContainsFullHouse() => HasNCardsOfAKind(3) && HasNCardsOfAKind(2);
+        private bool ContainsFullHouse() => HasKOfNCardsOfAKind(1, 3) && HasKOfNCardsOfAKind(1, 2);
 
         private bool ContainsFlush() =>
             Cards.All(c => Cards.First().Suit == c.Suit);

@@ -172,6 +172,23 @@ namespace CsharpPokerFunctional
         }
 
         [Fact]
+        public void CanScoreTwoPairs()
+        {
+            var hand = new Hand(
+                new HashSet<Card>
+                {
+                    new Card(CardValue.Two, CardSuit.Hearts),
+                    new Card(CardValue.Ten, CardSuit.Spades),
+                    new Card(CardValue.Two, CardSuit.Clubs),
+                    new Card(CardValue.Ten, CardSuit.Diamonds),
+                    new Card(CardValue.Three, CardSuit.Spades),
+                }
+            );
+
+            Assert.Equal(HandRank.TwoPair, hand.GetHandRank());
+        }
+
+        [Fact]
         public void CanScoreFullHouse()
         {
             var hand = new Hand(
