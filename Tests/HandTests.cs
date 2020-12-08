@@ -146,7 +146,7 @@ namespace CsharpPokerFunctional
                     new Card(CardValue.Two, CardSuit.Hearts),
                     new Card(CardValue.Ten, CardSuit.Spades),
                     new Card(CardValue.Two, CardSuit.Clubs),
-                    new Card(CardValue.Ten, CardSuit.Hearts),
+                    new Card(CardValue.Three, CardSuit.Hearts),
                     new Card(CardValue.Two, CardSuit.Spades),
                 }
             );

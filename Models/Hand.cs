@@ -21,21 +21,33 @@ namespace CsharpPokerFunctional
             ContainsRoyalFlush() ? HandRank.RoyalFlush :
             ContainsFlush() ? HandRank.Flush :
             NumberDuplicateCardsByValue() == 4 ? HandRank.FourOfAKind :
+            ContainsFullHouse() ? HandRank.FullHouse :
             NumberDuplicateCardsByValue() == 3 ? HandRank.ThreeOfAKind :
             NumberDuplicateCardsByValue() == 2 ? HandRank.Pair :
             HandRank.HighCard;
 
-        private int NumberDuplicateCardsByValue() =>
-            Cards.GroupBy(c => c.Value)
+        private IEnumerable<DuplicateCard> GetDuplicateCardsByValue() =>
+            Cards.GroupBy(c => c.Value, c => new DuplicateCard { Value = c.Value })
                 .Where(g => g.Count() > 1)
-                .Select(c => new { Element = c.Key, Counter = c.Count() })
-                .OrderByDescending(c => c.Counter)
-                .FirstOrDefault()?.Counter ?? 0;
+                .Select(duplicateCard => new DuplicateCard { Value = duplicateCard.Key, DuplicateCount = duplicateCard.Count() })
+                .OrderByDescending(c => c.DuplicateCount);
+
+        private int NumberDuplicateCardsByValue() =>
+            GetDuplicateCardsByValue()
+                .FirstOrDefault()?.DuplicateCount ?? 0;
 
         private bool IsFullHand() => Cards.Count == 5;
 
         private bool ContainsRoyalFlush() =>
             ContainsFlush() && Cards.All(c => c.Value > CardValue.Nine);
+
+        private bool ContainsFullHouse()
+        {
+            var duplicates = GetDuplicateCardsByValue();
+            return duplicates.Count() > 1 &&
+                duplicates.ElementAtOrDefault(0)?.DuplicateCount == 3 &&
+                duplicates.ElementAtOrDefault(1)?.DuplicateCount == 2;
+        }
 
         private bool ContainsFlush() =>
             Cards.All(c => Cards.First().Suit == c.Suit);
@@ -56,5 +68,11 @@ namespace CsharpPokerFunctional
         FourOfAKind,
         StraightFlush,
         RoyalFlush
+    }
+
+    record DuplicateCard
+    {
+        public CardValue Value;
+        public int DuplicateCount;
     }
 }
