@@ -27,9 +27,9 @@ namespace CsharpPokerFunctional
             HandRank.HighCard;
 
         private bool HasNCardsOfAKind(int n) =>
-            Cards.GroupBy(c => c.Value, c => new DuplicateCardValues { Value = c.Value })
+            Cards.GroupBy(c => c.Value)
                 .Where(g => g.Count() > 1)
-                .Select(g => new DuplicateCardValues { Value = g.Key, DuplicateCount = g.Count() })
+                .Select(g => new { Value = g.Key, DuplicateCount = g.Count() })
                 .OrderByDescending(c => c.DuplicateCount)
                 .Any(duplicate => duplicate.DuplicateCount == n);
 
@@ -59,11 +59,5 @@ namespace CsharpPokerFunctional
         FourOfAKind,
         StraightFlush,
         RoyalFlush
-    }
-
-    record DuplicateCardValues
-    {
-        public CardValue Value;
-        public int DuplicateCount;
     }
 }
