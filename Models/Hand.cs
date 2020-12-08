@@ -29,7 +29,7 @@ namespace CsharpPokerFunctional
         private IEnumerable<DuplicateCard> GetDuplicateCardsByValue() =>
             Cards.GroupBy(c => c.Value, c => new DuplicateCard { Value = c.Value })
                 .Where(g => g.Count() > 1)
-                .Select(duplicateCard => new DuplicateCard { Value = duplicateCard.Key, DuplicateCount = duplicateCard.Count() })
+                .Select(g => new DuplicateCard { Value = g.Key, DuplicateCount = g.Count() })
                 .OrderByDescending(c => c.DuplicateCount);
 
         private int NumberDuplicateCardsByValue() =>
