@@ -21,33 +21,24 @@ namespace CsharpPokerFunctional
             ContainsRoyalFlush() ? HandRank.RoyalFlush :
             ContainsFlush() ? HandRank.Flush :
             ContainsFullHouse() ? HandRank.FullHouse :
-            NumberDuplicateCardsByValue() == 4 ? HandRank.FourOfAKind :
-            NumberDuplicateCardsByValue() == 3 ? HandRank.ThreeOfAKind :
-            NumberDuplicateCardsByValue() == 2 ? HandRank.Pair :
+            HasNCardsOfAKind(4) ? HandRank.FourOfAKind :
+            HasNCardsOfAKind(3) ? HandRank.ThreeOfAKind :
+            HasNCardsOfAKind(2) ? HandRank.Pair :
             HandRank.HighCard;
 
-        private IEnumerable<DuplicateCard> GetDuplicateCardsByValueDescending() =>
-            Cards.GroupBy(c => c.Value, c => new DuplicateCard { Value = c.Value })
+        private bool HasNCardsOfAKind(int n) =>
+            Cards.GroupBy(c => c.Value, c => new DuplicateCardValues { Value = c.Value })
                 .Where(g => g.Count() > 1)
-                .Select(g => new DuplicateCard { Value = g.Key, DuplicateCount = g.Count() })
-                .OrderByDescending(c => c.DuplicateCount);
-
-        private int NumberDuplicateCardsByValue() =>
-            GetDuplicateCardsByValueDescending()
-                .FirstOrDefault()?.DuplicateCount ?? 0;
+                .Select(g => new DuplicateCardValues { Value = g.Key, DuplicateCount = g.Count() })
+                .OrderByDescending(c => c.DuplicateCount)
+                .Any(duplicate => duplicate.DuplicateCount == n);
 
         private bool IsFullHand() => Cards.Count == 5;
 
         private bool ContainsRoyalFlush() =>
             ContainsFlush() && Cards.All(c => c.Value > CardValue.Nine);
 
-        private bool ContainsFullHouse()
-        {
-            var duplicates = GetDuplicateCardsByValueDescending();
-            return duplicates.Count() > 1 &&
-                duplicates.ElementAtOrDefault(0)?.DuplicateCount == 3 &&
-                duplicates.ElementAtOrDefault(1)?.DuplicateCount == 2;
-        }
+        private bool ContainsFullHouse() => HasNCardsOfAKind(3) && HasNCardsOfAKind(2);
 
         private bool ContainsFlush() =>
             Cards.All(c => Cards.First().Suit == c.Suit);
@@ -70,7 +61,7 @@ namespace CsharpPokerFunctional
         RoyalFlush
     }
 
-    record DuplicateCard
+    record DuplicateCardValues
     {
         public CardValue Value;
         public int DuplicateCount;
