@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -8,48 +9,60 @@ namespace CsharpPokerFunctional
         [Fact]
         public void CanCreateHand()
         {
-            var hand = new Hand(new HashSet<Card>());
-            Assert.True(hand.Cards.Count == 0);
+            var hand = new Hand(
+                new HashSet<Card>
+                {
+                    new Card(CardValue.Nine, CardSuit.Spades),
+                    new Card(CardValue.Ten, CardSuit.Spades),
+                    new Card(CardValue.Jack, CardSuit.Spades),
+                    new Card(CardValue.Two, CardSuit.Spades),
+                    new Card(CardValue.King, CardSuit.Spades),
+                }
+            );
+
+            Assert.True(hand.Cards.Count == 5);
         }
 
         [Fact]
         public void NoDuplicateCards()
         {
             var cardsDup = new HashSet<Card> {
-                new Card(CardValue.Two, CardSuit.Hearts),
-                new Card(CardValue.Two, CardSuit.Hearts),
+                new Card(CardValue.Nine, CardSuit.Spades),
+                new Card(CardValue.Nine, CardSuit.Spades),
+                new Card(CardValue.Ten, CardSuit.Spades),
+                new Card(CardValue.Jack, CardSuit.Spades),
+                new Card(CardValue.Two, CardSuit.Spades),
+                new Card(CardValue.King, CardSuit.Spades),
             };
             var cardsNoDup = new HashSet<Card> {
-                new Card(CardValue.Two, CardSuit.Hearts),
+                new Card(CardValue.Nine, CardSuit.Spades),
+                new Card(CardValue.Ten, CardSuit.Spades),
+                new Card(CardValue.Jack, CardSuit.Spades),
+                new Card(CardValue.Two, CardSuit.Spades),
+                new Card(CardValue.King, CardSuit.Spades),
             };
 
             var hand = new Hand(cardsDup);
-            Assert.Equal(cardsNoDup, hand.Cards);
-        }
-
-        [Fact]
-        public void SameHandsAreEqual()
-        {
-            var cards1 = new HashSet<Card> {
-                new Card(CardValue.Two, CardSuit.Hearts),
-                new Card(CardValue.Three, CardSuit.Hearts),
-            };
-            var cards2 = new HashSet<Card> {
-                new Card(CardValue.Two, CardSuit.Hearts),
-                new Card(CardValue.Three, CardSuit.Hearts),
-            };
-
-            Assert.Equal(new Hand(cards1), new Hand(cards2));
+            var handNoDup = new Hand(cardsNoDup);
+            Assert.Equal(handNoDup.Cards, hand.Cards);
         }
 
         [Fact]
         public void DifferentHandsNotEqual()
         {
             var cards1 = new HashSet<Card> {
+                new Card(CardValue.Nine, CardSuit.Spades),
+                new Card(CardValue.Ten, CardSuit.Spades),
+                new Card(CardValue.Jack, CardSuit.Spades),
                 new Card(CardValue.Two, CardSuit.Spades),
+                new Card(CardValue.King, CardSuit.Spades),
             };
             var cards2 = new HashSet<Card> {
-                new Card(CardValue.Two, CardSuit.Hearts),
+                new Card(CardValue.Three, CardSuit.Spades),
+                new Card(CardValue.Ten, CardSuit.Spades),
+                new Card(CardValue.Jack, CardSuit.Spades),
+                new Card(CardValue.Two, CardSuit.Spades),
+                new Card(CardValue.King, CardSuit.Spades),
             };
 
             Assert.NotEqual(new Hand(cards1), new Hand(cards2));
@@ -62,6 +75,8 @@ namespace CsharpPokerFunctional
                 new Card(CardValue.Two, CardSuit.Hearts),
                 new Card(CardValue.Eight, CardSuit.Hearts),
                 new Card(CardValue.Three, CardSuit.Diamonds),
+                new Card(CardValue.Three, CardSuit.Clubs),
+                new Card(CardValue.Three, CardSuit.Hearts),
             };
 
             var hand = new Hand(cards);
@@ -69,21 +84,9 @@ namespace CsharpPokerFunctional
         }
 
         [Fact]
-        public void EmptyHandNoRank()
+        public void EmptyHandThrowsArgumentException()
         {
-            var hand = new Hand(new HashSet<Card>());
-            Assert.Equal(HandRank.NoRank, hand.GetHandRank());
-        }
-
-        [Fact]
-        public void PartialHandNoRank()
-        {
-            var hand = new Hand(new HashSet<Card>() {
-                new Card(CardValue.Ten, CardSuit.Spades),
-                new Card(CardValue.Jack, CardSuit.Spades),
-            });
-
-            Assert.Equal(HandRank.NoRank, hand.GetHandRank());
+            Assert.Throws<ArgumentException>(() => new Hand(new HashSet<Card>()));
         }
 
         [Fact]

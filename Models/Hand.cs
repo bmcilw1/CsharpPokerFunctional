@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSharpFunctionalExtensions;
@@ -8,7 +9,13 @@ namespace CsharpPokerFunctional
     {
         public HashSet<Card> Cards { get; init; }
 
-        public Hand(HashSet<Card> cards) => Cards = cards;
+        public Hand(HashSet<Card> cards)
+        {
+            if (cards.Count != 5)
+                throw new ArgumentException("A hand must contain 5 cards");
+
+            Cards = cards;
+        }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
@@ -17,7 +24,6 @@ namespace CsharpPokerFunctional
         }
 
         public HandRank GetHandRank() =>
-            !IsFullHand() ? HandRank.NoRank :
             ContainsRoyalFlush() ? HandRank.RoyalFlush :
             ContainsFlush() && ContainsStraight() ? HandRank.StraightFlush :
             ContainsFlush() ? HandRank.Flush :
@@ -36,8 +42,6 @@ namespace CsharpPokerFunctional
         private bool HasKOfNCardsOfAKind(int k, int n) =>
             Cards.GroupBy(c => c.Value)
                 .Count(g => g.Count() == n) == k;
-
-        private bool IsFullHand() => Cards.Count == 5;
 
         private bool ContainsRoyalFlush() =>
             ContainsFlush() && Cards.All(c => c.Value > CardValue.Nine);
