@@ -170,5 +170,22 @@ namespace CsharpPokerFunctional
 
             Assert.Equal(HandRank.FourOfAKind, hand.GetHandRank());
         }
+
+        [Fact]
+        public void CanScoreFullHouse()
+        {
+            var hand = new Hand(
+                new HashSet<Card>
+                {
+                    new Card(CardValue.Ten, CardSuit.Hearts),
+                    new Card(CardValue.Ten, CardSuit.Spades),
+                    new Card(CardValue.Ten, CardSuit.Clubs),
+                    new Card(CardValue.Jack, CardSuit.Diamonds),
+                    new Card(CardValue.Jack, CardSuit.Spades),
+                }
+            );
+
+            Assert.Equal(HandRank.FullHouse, hand.GetHandRank());
+        }
     }
 }
