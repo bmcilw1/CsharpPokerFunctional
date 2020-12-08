@@ -20,7 +20,17 @@ namespace CsharpPokerFunctional
             !IsFullHand() ? HandRank.NoRank :
             ContainsRoyalFlush() ? HandRank.RoyalFlush :
             ContainsFlush() ? HandRank.Flush :
+            NumberDuplicateCardsByValue() == 4 ? HandRank.FourOfAKind :
+            NumberDuplicateCardsByValue() == 3 ? HandRank.ThreeOfAKind :
+            NumberDuplicateCardsByValue() == 2 ? HandRank.Pair :
             HandRank.HighCard;
+
+        private int NumberDuplicateCardsByValue() =>
+            Cards.GroupBy(c => c.Value)
+                .Where(g => g.Count() > 1)
+                .Select(c => new { Element = c.Key, Counter = c.Count() })
+                .OrderByDescending(c => c.Counter)
+                .FirstOrDefault()?.Counter ?? 0;
 
         private bool IsFullHand() => Cards.Count == 5;
 

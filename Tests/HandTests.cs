@@ -119,5 +119,56 @@ namespace CsharpPokerFunctional
 
             Assert.Equal(HandRank.Flush, hand.GetHandRank());
         }
+
+        [Fact]
+        public void CanScorePair()
+        {
+            var hand = new Hand(
+                new HashSet<Card>
+                {
+                    new Card(CardValue.Nine, CardSuit.Spades),
+                    new Card(CardValue.Ten, CardSuit.Spades),
+                    new Card(CardValue.Jack, CardSuit.Spades),
+                    new Card(CardValue.Ten, CardSuit.Hearts),
+                    new Card(CardValue.King, CardSuit.Spades),
+                }
+            );
+
+            Assert.Equal(HandRank.Pair, hand.GetHandRank());
+        }
+
+        [Fact]
+        public void CanScoreThreeOfAKind()
+        {
+            var hand = new Hand(
+                new HashSet<Card>
+                {
+                    new Card(CardValue.Two, CardSuit.Hearts),
+                    new Card(CardValue.Ten, CardSuit.Spades),
+                    new Card(CardValue.Two, CardSuit.Clubs),
+                    new Card(CardValue.Ten, CardSuit.Hearts),
+                    new Card(CardValue.Two, CardSuit.Spades),
+                }
+            );
+
+            Assert.Equal(HandRank.ThreeOfAKind, hand.GetHandRank());
+        }
+
+        [Fact]
+        public void CanScoreFourOfAKind()
+        {
+            var hand = new Hand(
+                new HashSet<Card>
+                {
+                    new Card(CardValue.Two, CardSuit.Hearts),
+                    new Card(CardValue.Ten, CardSuit.Spades),
+                    new Card(CardValue.Two, CardSuit.Clubs),
+                    new Card(CardValue.Two, CardSuit.Diamonds),
+                    new Card(CardValue.Two, CardSuit.Spades),
+                }
+            );
+
+            Assert.Equal(HandRank.FourOfAKind, hand.GetHandRank());
+        }
     }
 }
