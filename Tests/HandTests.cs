@@ -180,8 +180,8 @@ namespace CsharpPokerFunctional
                     new Card(CardValue.Ten, CardSuit.Hearts),
                     new Card(CardValue.Ten, CardSuit.Spades),
                     new Card(CardValue.Ten, CardSuit.Clubs),
-                    new Card(CardValue.Jack, CardSuit.Diamonds),
-                    new Card(CardValue.Jack, CardSuit.Spades),
+                    new Card(CardValue.Two, CardSuit.Diamonds),
+                    new Card(CardValue.Two, CardSuit.Spades),
                 }
             );
 
