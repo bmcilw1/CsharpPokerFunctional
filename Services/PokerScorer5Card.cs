@@ -5,7 +5,7 @@ namespace CsharpPokerFunctional
 {
     public static class PokerScorer5Card
     {
-        public static HandRank GetHandRank(IEnumerable<Card> cards) =>
+        public static HandRank GetHandRank(this IEnumerable<Card> cards) =>
             ContainsRoyalFlush(cards) ? HandRank.RoyalFlush :
             ContainsFlush(cards) && ContainsStraight(cards) ? HandRank.StraightFlush :
             ContainsFlush(cards) ? HandRank.Flush :
@@ -34,6 +34,6 @@ namespace CsharpPokerFunctional
         private static bool ContainsFlush(IEnumerable<Card> cards) =>
             cards.All(c => cards.First().Suit == c.Suit);
 
-        public static CardValue GetHighCard(IEnumerable<Card> cards) => cards.Max((card) => card.Value);
+        public static CardValue GetHighCard(this IEnumerable<Card> cards) => cards.Max((card) => card.Value);
     }
 }

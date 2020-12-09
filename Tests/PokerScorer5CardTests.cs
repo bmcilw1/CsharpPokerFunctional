@@ -18,7 +18,7 @@ namespace CsharpPokerFunctional
             };
 
             var hand = new Hand(cards);
-            Assert.Equal(CardValue.Eight, PokerScorer5Card.GetHighCard(hand.Cards));
+            Assert.Equal(CardValue.Eight, hand.Cards.GetHighCard());
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace CsharpPokerFunctional
             };
 
             var hand = new Hand(cards);
-            Assert.Equal(HandRank.HighCard, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.HighCard, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.RoyalFlush, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.RoyalFlush, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.Flush, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.Flush, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -84,7 +84,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.Pair, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.Pair, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.ThreeOfAKind, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.ThreeOfAKind, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.FourOfAKind, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.FourOfAKind, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -135,7 +135,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.TwoPair, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.TwoPair, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -152,7 +152,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.FullHouse, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.FullHouse, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -169,7 +169,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.Straight, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.Straight, hand.Cards.GetHandRank());
         }
 
         [Fact]
@@ -186,7 +186,7 @@ namespace CsharpPokerFunctional
                 }
             );
 
-            Assert.Equal(HandRank.StraightFlush, PokerScorer5Card.GetHandRank(hand.Cards));
+            Assert.Equal(HandRank.StraightFlush, hand.Cards.GetHandRank());
         }
     }
 }
